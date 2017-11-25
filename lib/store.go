@@ -68,7 +68,7 @@ func (l *LinkStore) Populate() {
 const validHexColorRange = 16777216
 
 func NewColorLink(link string) ColorLink {
-	randomColor := fmt.Sprintf("%X", rand.Intn(validHexColorRange))
+	randomColor := fmt.Sprintf("#%.6X", rand.Intn(validHexColorRange))
 	return ColorLink{
 		Link:  link,
 		Color: randomColor,
