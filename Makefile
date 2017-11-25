@@ -8,7 +8,7 @@ clean:
 	rm -f bin/random
 
 docker-run:
-	docker run --rm -t -d -p 8080:8080 enocom/random:latest
+	docker run --rm -it -p 8080:8080 enocom/random:latest
 
 docker-build: clean docker-bin
 	docker build -t enocom/random:latest .
