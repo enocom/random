@@ -17,6 +17,8 @@ func NewStore(poll time.Duration) *LinkStore {
 				return http.ErrUseLastResponse
 			},
 		},
+		data:     make([]ColorLink, 1000),
+		writeIdx: 0,
 	}
 }
 
@@ -26,11 +28,12 @@ type ColorLink struct {
 }
 
 type LinkStore struct {
-	mu   sync.Mutex
-	data []ColorLink
+	mu       sync.Mutex
+	data     []ColorLink
+	writeIdx int
 
-	client       *http.Client
 	pollDuration time.Duration
+	client       *http.Client
 }
 
 func (l *LinkStore) All() []ColorLink {
@@ -60,7 +63,11 @@ func (l *LinkStore) Populate() {
 		cl := NewColorLink(link[0])
 
 		l.mu.Lock()
-		l.data = append(l.data, cl)
+		l.data[l.writeIdx] = cl
+		l.writeIdx++
+		if l.writeIdx > 999 {
+			l.writeIdx = 0
+		}
 		l.mu.Unlock()
 	}
 }
