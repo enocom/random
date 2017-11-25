@@ -8,10 +8,10 @@ clean:
 	rm -f bin/random
 
 docker-run:
-	docker run --rm -t -d -p 8080:8080 random-app
+	docker run --rm -t -d -p 8080:8080 enocom/random:latest
 
 docker-build: clean docker-bin
-	docker build -t random-app:latest .
+	docker build -t enocom/random:latest .
 
 docker-bin:
 	CGO_ENABLED=0 \

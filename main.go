@@ -25,12 +25,12 @@ func main() {
 	go store.Populate()
 
 	http.Handle("/", random.NewRootHandler(store))
-	log.Fatal(http.ListenAndServe(env.port, nil))
+	log.Fatal(http.ListenAndServe(env.hostport, nil))
 }
 
 type env struct {
 	pollDuration time.Duration
-	port         string
+	hostport     string
 }
 
 func readEnvironment() (env, error) {
@@ -49,7 +49,7 @@ func readEnvironment() (env, error) {
 
 	e := env{
 		pollDuration: pollDuration,
-		port:         fmt.Sprintf("localhost:%s", port),
+		hostport:     fmt.Sprintf(":%s", port),
 	}
 
 	return e, nil
