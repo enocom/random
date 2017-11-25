@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: random
+  labels:
+    app: random
+spec:
+  containers:
+    - name: random
+      image: enocom/random:latest
+      ports:
+        - name: http
+          containerPort: 80
+      env:
+        - name: ADDR
+          value: 0.0.0.0:80
+        - name: POLL_DURATION
+          value: 1m
+      resources:
+        limits:
+          cpu: 0.2
+          memory: "10Mi"
