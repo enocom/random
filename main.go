@@ -11,6 +11,8 @@ import (
 	random "github.com/enocom/random/lib"
 )
 
+const version = "1.1.0"
+
 func main() {
 	rand.Seed(time.Now().Unix())
 	env, err := readEnvironment()
@@ -23,6 +25,7 @@ func main() {
 	go store.Populate()
 
 	http.Handle("/", random.NewRootHandler(store))
+	http.Handle("/healthz", random.NewHealthHandler(version))
 	log.Fatal(http.ListenAndServe(env.addr, nil))
 }
 
