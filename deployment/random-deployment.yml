@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: random
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: random
+        track: stable
+    spec:
+      containers:
+        - name: random
+          image: "enocom/random:1.1.0"
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: ADDR
+              value: 0.0.0.0:80
+            - name: POLL_DURATION
+              value: 1m
