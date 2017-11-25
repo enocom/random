@@ -49,6 +49,7 @@ const (
 		}
 		.grid .swatch {
 			margin-right: 0.25em;
+			margin-bottom: 0.25em;
 		}
 	</style>
 </head>

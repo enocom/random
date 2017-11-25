@@ -10,6 +10,14 @@ import (
 )
 
 func NewStore(poll time.Duration) *LinkStore {
+	data := make([]ColorLink, 1000)
+	for i := 0; i < 1000; i++ {
+		data[i] = ColorLink{
+			Link:  "#",
+			Color: "white",
+		}
+	}
+
 	return &LinkStore{
 		pollDuration: poll,
 		client: &http.Client{
@@ -17,7 +25,7 @@ func NewStore(poll time.Duration) *LinkStore {
 				return http.ErrUseLastResponse
 			},
 		},
-		data:     make([]ColorLink, 1000),
+		data:     data,
 		writeIdx: 0,
 	}
 }
