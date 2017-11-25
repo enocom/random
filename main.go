@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -14,23 +13,22 @@ import (
 
 func main() {
 	rand.Seed(time.Now().Unix())
-	log.Println("Starting server on port 8080")
-
 	env, err := readEnvironment()
 	if err != nil {
 		log.Fatalf("Failed to read environment variable: %v", err)
 	}
+	log.Printf("Starting server on %s", env.addr)
 
 	store := random.NewStore(env.pollDuration)
 	go store.Populate()
 
 	http.Handle("/", random.NewRootHandler(store))
-	log.Fatal(http.ListenAndServe(env.hostport, nil))
+	log.Fatal(http.ListenAndServe(env.addr, nil))
 }
 
 type env struct {
 	pollDuration time.Duration
-	hostport     string
+	addr         string
 }
 
 func readEnvironment() (env, error) {
@@ -42,14 +40,14 @@ func readEnvironment() (env, error) {
 	if err != nil {
 		return env{}, errors.New("incorrect format of POLL_DURATION (e.g., 1m)")
 	}
-	port := os.Getenv("PORT")
-	if port == "" {
-		return env{}, errors.New("missing PORT (e.g., 8080)")
+	addr := os.Getenv("ADDR")
+	if addr == "" {
+		return env{}, errors.New("missing ADDR (e.g., 0.0.0.0:80)")
 	}
 
 	e := env{
 		pollDuration: pollDuration,
-		hostport:     fmt.Sprintf(":%s", port),
+		addr:         addr,
 	}
 
 	return e, nil

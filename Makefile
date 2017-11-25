@@ -1,5 +1,5 @@
 run: build
-	PORT=8080 POLL_DURATION=10s bin/random
+	ADDR=:8080 POLL_DURATION=10s bin/random
 
 build: clean
 	go build -o bin/random
