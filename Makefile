@@ -11,7 +11,7 @@ docker-run:
 	docker run --rm -it -e "ADDR=:8080" -e "POLL_DURATION=10s" -p 8080:8080 enocom/random:latest
 
 docker-build: clean docker-bin
-	docker build -t "enocom/random:${VERSION:-latest}" .
+	docker build -t "enocom/random:$(VERSION)" .
 
 docker-bin:
 	CGO_ENABLED=0 \
