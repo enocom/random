@@ -7,8 +7,11 @@ build: clean
 clean:
 	rm -f bin/random
 
-docker: clean docker-bin
-	docker build -t random-app
+docker-run:
+	docker run --rm -t -d -p 8080:8080 random-app
+
+docker-build: clean docker-bin
+	docker build -t random-app:latest .
 
 docker-bin:
 	CGO_ENABLED=0 \
