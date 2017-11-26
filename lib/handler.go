@@ -13,7 +13,7 @@ type RootHandler struct {
 	store *LinkStore
 }
 
-func (r *RootHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+func (r *RootHandler) ServeHTTP(rw http.ResponseWriter, _ *http.Request) {
 	colorLinks := r.store.All()
 	links := renderLinks(colorLinks)
 
