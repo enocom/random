@@ -37,27 +37,19 @@ func renderIndex(links string) []byte {
 
 const (
 	linkFormat  = `<a href="%s"><div class="swatch" style="background-color:%s;"></div></a>`
-	indexFormat = `<html>
+	indexFormat = `
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>random</title>
-	<style>
-		.swatch {
-			display: inline-block;
-			height: 1em;
-			width: 1em;
-		}
-		.grid .swatch {
-			margin-right: 0.25em;
-			margin-bottom: 0.25em;
-		}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>random</title>
+  <style>
+    .swatch { display: inline-block; height: 1em; width: 1em; }
+    .grid .swatch { margin-right: 0.25em; margin-bottom: 0.25em; }
+  </style>
 </head>
 <body>
-	<div class="grid">
-		%s
-	</div>
+  <div class="grid">%s</div>
 </body>
 </html>`
 )
