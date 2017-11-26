@@ -11,7 +11,7 @@ import (
 	random "github.com/enocom/random/lib"
 )
 
-const version = "1.1.0"
+const version = "1.2.0"
 
 func main() {
 	rand.Seed(time.Now().Unix())
