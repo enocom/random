@@ -1,11 +1,12 @@
 # random
 
 Random is a web application which collects random Wikipedia pages and displays
-links to those pages as swatches.
+links to those pages as swatches. It is deployed at [random.ecom.com](http://random.ecom.com)
+and is running within a Kubernetes cluster on Google Cloud Platform.
 
 ## Development
 
-To run the application localy, use:
+To run the application locally, use:
 
 ```
 make run
