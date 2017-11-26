@@ -20,8 +20,8 @@ func NewLinkStore(poll time.Duration) *LinkStore {
 	data := make([]ColorLink, 1000)
 	for i := 0; i < 1000; i++ {
 		data[i] = ColorLink{
-			Link:  "#",
-			Color: "white",
+			Link:  "http://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/",
+			Color: "rebeccapurple",
 		}
 	}
 
