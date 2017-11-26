@@ -21,7 +21,7 @@ func main() {
 	}
 	log.Printf("Starting server on %s", env.addr)
 
-	store := random.NewStore(env.pollDuration)
+	store := random.NewLinkStore(env.pollDuration)
 	go store.Populate()
 
 	http.Handle("/", random.NewRootHandler(store))

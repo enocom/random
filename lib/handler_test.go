@@ -9,7 +9,7 @@ import (
 )
 
 func BenchmarkRootHandler(b *testing.B) {
-	store := random.NewStore(0)
+	store := random.NewLinkStore(0)
 	h := random.NewRootHandler(store)
 	recoder := httptest.NewRecorder()
 	req := &http.Request{}

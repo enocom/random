@@ -9,7 +9,14 @@ import (
 	"time"
 )
 
-func NewStore(poll time.Duration) *LinkStore {
+const (
+	randomArticleURL   = "https://en.wikipedia.org/wiki/Special:Random"
+	validHexColorRange = 16777216
+)
+
+// NewLinkStore is the constructor for LinkStore. It initializes a data set with
+// empty links.
+func NewLinkStore(poll time.Duration) *LinkStore {
 	data := make([]ColorLink, 1000)
 	for i := 0; i < 1000; i++ {
 		data[i] = ColorLink{
@@ -30,11 +37,8 @@ func NewStore(poll time.Duration) *LinkStore {
 	}
 }
 
-type ColorLink struct {
-	Link  string
-	Color string
-}
-
+// LinkStore fetches random links from Wikipedia and stores those links along
+// with a random color.
 type LinkStore struct {
 	mu       sync.Mutex
 	data     []ColorLink
@@ -44,14 +48,15 @@ type LinkStore struct {
 	client       *http.Client
 }
 
+// All returns the entire contents of the store.
 func (l *LinkStore) All() []ColorLink {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 	return l.data
 }
 
-const randomArticleURL = "https://en.wikipedia.org/wiki/Special:Random"
-
+// Populate will fetch a random article from Wikipedia on the configured
+// interval.
 func (l *LinkStore) Populate() {
 	for range time.Tick(l.pollDuration) {
 		resp, err := l.client.Get(randomArticleURL)
@@ -80,12 +85,17 @@ func (l *LinkStore) Populate() {
 	}
 }
 
-const validHexColorRange = 16777216
-
+// NewColorLink creates a color link with the specified URL and a random color.
 func NewColorLink(link string) ColorLink {
 	randomColor := fmt.Sprintf("#%.6X", rand.Intn(validHexColorRange))
 	return ColorLink{
 		Link:  link,
 		Color: randomColor,
 	}
+}
+
+// ColorLink holds a URL and a Hex color.
+type ColorLink struct {
+	Link  string
+	Color string
 }

@@ -2,24 +2,31 @@ package random
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
+// NewRootHandler is the constructor for RootHandler.
 func NewRootHandler(s *LinkStore) *RootHandler {
 	return &RootHandler{store: s}
 }
 
+// RootHandler services requests at the application's root.
 type RootHandler struct {
 	store *LinkStore
 }
 
+// ServeHTTP will render all stored color links as a grid of swatches.
 func (r *RootHandler) ServeHTTP(rw http.ResponseWriter, _ *http.Request) {
 	colorLinks := r.store.All()
 	links := renderLinks(colorLinks)
 
 	index := renderIndex(links)
 
-	rw.Write(index)
+	_, err := rw.Write(index)
+	if err != nil {
+		log.Printf("Failed to write index to client: %v", err)
+	}
 }
 
 func renderLinks(cs []ColorLink) string {
