@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	random "github.com/enocom/random/lib"
+	"github.com/enocom/random"
 )
 
 const version = "1.4.0"
